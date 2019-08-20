@@ -9,14 +9,21 @@ exports.get_trains = (req,res) => {
     // send cached 
     res.json(train_data.get_json())
   }else{
+    //serve html and fetch new train data from MTA
     token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-
-    // res.send(token)
     res.render('index', {token:token})
   }
   
 }
 
-exports.post_trains = () => {
-	console.log('getting')
+
+exports.post_trains = (req,res) => {
+  //runs when we serve html and fetch new train data from MTA
+  if (req.body.token == token){
+    console.log('token match :)')
+    res.status(200)
+  }else{
+    console.log('token mismatch :(')
+    res.status(401)
+  }
 }
