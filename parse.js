@@ -3,5 +3,5 @@ exports.addCacheInfo = trains => {
 	trainObj = {}
 	trainObj.trains = trains
 	trainObj.cacheTime = new Date
-	console.log(trainObj)
+	// console.log(trainObj)
 }

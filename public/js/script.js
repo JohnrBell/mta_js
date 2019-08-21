@@ -25,7 +25,7 @@ cleanTrainObject = subway => {
     delete train.inService
     delete train.routeType
   })
-  console.log(subway)
+  // console.log(subway)
   postToAPI(subway)
 }
 
