@@ -12,19 +12,15 @@ exports.get_trains = (req,res) => {
     //generate cache time
     let now = Date.parse(new Date)
     //check age of data
-    if (((now - globalTrains.cacheTime)/1000) < 300){
-      console.log('cache is less than 5 minutes old')
+    if (((now - globalTrains.cacheTime)/1000) < 1){ //300 is 5 min
       res.send(globalTrains)
     }else{
-      console.log('cache is older than 5 minutes')
       res.render('index', {token:token})
     }
-    // console.log('cache is '+((now-json.cacheTime)/1000)+' seconds old')
   }
 }
 
 
-//runs when we serve html and fetch new train data from MTA
 //client POST train data to this route
 exports.post_trains = (req,res) => {
   if (req.body.token == token){
