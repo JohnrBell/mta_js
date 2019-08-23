@@ -7,9 +7,17 @@
 <body>
 
   <div id='train_container'>
-  
-  </div>
+    <% if (data) { %>
+    (cached)
+      <% data.trains.forEach(train => { %>
 
+      
+      <div id='<%= train.route %>' class='train'><%= train.route %></div>
+
+      <% }) %>
+
+    <% } %>
+  </div>
   <% if (token) { %>
     <div class='hidden' id='token'><%= token %></div>
   <% } %>

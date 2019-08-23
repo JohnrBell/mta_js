@@ -7,17 +7,17 @@ exports.get_trains = (req,res) => {
   if (Object.keys(globalTrains).length == 0){
     //generate a token, serve index, fetch new train data from MTA
     token = helper.genToken()
-    res.render('index', {token:token})
+    res.render('index', {data:null, token:token})
   }else{
     //generate cache time
     let now = Date.parse(new Date)
     //check age of data
-    if (((now - globalTrains.cacheTime)/1000) < 10){ //300 is 5 min
+    if (((now - globalTrains.cacheTime)/1000) < 5){ //300 is 5 min
       console.log('sending cached')
-      res.render('index', {trains:globalTrains, token: null})
+      res.render('index', {data:globalTrains, token: null})
     }else{
       console.log('sending token')
-      res.render('index', {token:token})
+      res.render('index', {data:null, token:token})
     }
   }
 }
