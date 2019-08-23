@@ -2,27 +2,14 @@ const token = document.getElementById('token').innerHTML
 const trainInfo = {}
 
 const mtaXML = 'https://collector-otp-prod.camsys-apps.com/realtime/serviceStatus?apikey=qeqy84JE7hUKfaI0Lxm2Ttcm6ZA0bYrP'
-$.ajax({
-  url: mtaXML,
-  success: data => {
-    subway = []
-    data.routeDetails.forEach(line => {
-      if (line.mode == 'subway'){
-        subway.push(line)
-      }
-    })
-    cleanTrainObject(subway)
-  }
-})
 
-compare = (a, b) => {
-  let comparison = 0
-  if (a.route > b.route) {
-    comparison = 1
-  } else if (a.route < b.route) {
-    comparison = -1
-  }
-  return comparison
+appendToDOM = subway => {
+  container = document.getElementById('train_container')
+  subway.forEach(train =>{
+  // debugger
+    element = `<div id='`+train.route+`' class='train'>`+train.route+`</div>`
+    container.innerHTML += element
+  })
 }
 
 postToAPI = subway => {
@@ -42,7 +29,31 @@ removeTrains = subway => {
     if (train.route == "6X" || train.route == "7X"|| train.route == "SIR" || train.route == "S"){
       subway.splice(index,1)
     }
-    subway.sort(compare)
+    //sort
+    sortOrder = {'1':0,
+                '2':1,
+                '3':2,
+                '4':3,
+                '5':4,
+                '6':5,
+                '7':6,
+                'A':7,
+                'C':8,
+                'E':9,
+                'B':10,
+                'D':11,
+                'F':12,
+                'M':13,
+                'G':14,
+                'J':15,
+                'Z':16,
+                'L':17,
+                'N':18,
+                'Q':19,
+                'R':20,
+                'W':21,
+                'S':22}
+
   })
   postToAPI(subway)
 }
@@ -59,12 +70,16 @@ cleanTrainObject = subway => {
   removeTrains(subway)
 }
 
-appendToDOM = subway => {
-  container = document.getElementById('train_container')
-  subway.forEach(train =>{
-  // debugger
-    element = `<div id='`+train.route+`' class='train'>`+train.route+`</div>`
-    container.innerHTML += element
-  })
-}
-//TODO: append to DOM
+$.ajax({
+  url: mtaXML,
+  success: data => {
+    subway = []
+    data.routeDetails.forEach(line => {
+      if (line.mode == 'subway'){
+        subway.push(line)
+      }
+    })
+    cleanTrainObject(subway)
+  }
+})
+
