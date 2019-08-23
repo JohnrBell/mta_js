@@ -26,7 +26,7 @@ exports.post_trains = (req,res) => {
   if (req.body.token == token){
     //add cache time to object
     globalTrains = trainObj.addCacheInfo(req.body.data)
-    console.log('globalTrains: '+JSON.stringify(globalTrains))
+    // console.log('globalTrains: '+JSON.stringify(globalTrains))
   }else{
     res.status(401)
   }
