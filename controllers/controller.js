@@ -1,4 +1,4 @@
-var trainObj = require('../helper.js')
+var helper = require('../helper.js')
 var globalTrains = {}
 
 //runs when main URL is hit.
@@ -6,7 +6,7 @@ exports.get_trains = (req,res) => {
   //checks if global train object is empty, if so serve html and fetch new trains
   if (Object.keys(globalTrains).length == 0){
     //generate a token, serve index, fetch new train data from MTA
-    token = trainObj.genToken()
+    token = helper.genToken()
     res.render('index', {token:token})
   }else{
     //generate cache time
@@ -24,9 +24,8 @@ exports.get_trains = (req,res) => {
 //client POST train data to this route
 exports.post_trains = (req,res) => {
   if (req.body.token == token){
-    //add cache time to object
-    globalTrains = trainObj.addCacheInfo(req.body.data)
-    // console.log('globalTrains: '+JSON.stringify(globalTrains))
+    //process the response
+    globalTrains = helper.processRes(req.body.data)
   }else{
     res.status(401)
   }
