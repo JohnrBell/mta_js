@@ -8,7 +8,7 @@ appendToDOM = trains => {
     element = `<div id='`+train.route+`' class='train'>`+train.route+`</div>`
     container.innerHTML += element
   })
-  debugger
+  // debugger
 }
 
 postToAPI = trains => {
@@ -21,7 +21,7 @@ postToAPI = trains => {
   })
 }
 
-sortTrains = trains => {
+sortTrainOrder = trains => {
   sortOrder = {'1':0,'2':1,'3':2,'4':3,'5':4,'6':5,'7':6,'A':7,'C':8,'E':9,'B':10,'D':11,
               'F':12,'M':13,'G':14,'J':15,'Z':16,'L':17,'N':18,'Q':19,'R':20,'W':21,'S':22}
   sortedTrains = []
@@ -54,24 +54,19 @@ formatTrainData = trains => {
       train.statusDetails = {statusSummary:"all good."}
     }else{
       switch (train.statusDetails.statusSummary){
-        case "Planned Work":
-          train.statusDetails.statusSummary = "planned work."
+        case "Planned Work": train.statusDetails.statusSummary = "planned work."
         break
-        case "Service Change":
-          train.statusDetails.statusSummary = "service change."
+        case "Service Change": train.statusDetails.statusSummary = "service change."
         break
-        case "Delays":
-          train.statusDetails.statusSummary = "delayed af."
+        case "Delays": train.statusDetails.statusSummary = "delayed af."
         break
-        case "Slow Speeds":
-          train.statusDetails.statusSummary = "slow af."
+        case "Slow Speeds": train.statusDetails.statusSummary = "slow af."
         break
-        default: 
-          train.statusDetails.statusSummary = "probably screwed."
+        default:   train.statusDetails.statusSummary = "probably screwed."
       }
     }
   })
-  sortTrains(trains)
+  sortTrainOrder(trains)
 }
 
 removeTrains = trains => {
