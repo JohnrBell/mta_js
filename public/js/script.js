@@ -18,6 +18,7 @@ postToAPI = trains => {
     data: {token: token,
           data: trains},
     success: function(res){
+      console.log(res.trains)
       appendToDOM(res.trains)
     }
   })
@@ -35,4 +36,4 @@ $.ajax({
     })
   postToAPI(trains)
   }
-} )
+})

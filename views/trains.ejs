@@ -11,8 +11,10 @@
     (cached)
       <% data.trains.forEach(train => { %>
 
-      
-      <div id='<%= train.route %>' class='train'><%= train.route %></div>
+      <div class='train'>
+        <div id='<%= train.route %>' class='circle'><%= train.route %></div>
+        <div id='status'><%= train.statusDetails.statusSummary    %></div>
+      </div>
 
       <% }) %>
 
