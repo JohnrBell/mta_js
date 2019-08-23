@@ -13,8 +13,10 @@ exports.get_trains = (req,res) => {
     let now = Date.parse(new Date)
     //check age of data
     if (((now - globalTrains.cacheTime)/1000) < 10){ //300 is 5 min
-      res.send(globalTrains)
+      console.log('sending cached')
+      res.render('index', {trains:globalTrains, token: null})
     }else{
+      console.log('sending token')
       res.render('index', {token:token})
     }
   }
