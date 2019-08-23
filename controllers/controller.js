@@ -12,7 +12,7 @@ exports.get_trains = (req,res) => {
     //generate cache time
     let now = Date.parse(new Date)
     //check age of data
-    if (((now - globalTrains.cacheTime)/1000) < 1){ //300 is 5 min
+    if (((now - globalTrains.cacheTime)/1000) < 10){ //300 is 5 min
       res.send(globalTrains)
     }else{
       res.render('index', {token:token})
@@ -20,13 +20,14 @@ exports.get_trains = (req,res) => {
   }
 }
 
-
 //client POST train data to this route
 exports.post_trains = (req,res) => {
   if (req.body.token == token){
-    //process the response
+    //process the data and return it
     globalTrains = helper.processRes(req.body.data)
+    res.send(globalTrains)
   }else{
+    //unauthorized
     res.status(401)
   }
 }

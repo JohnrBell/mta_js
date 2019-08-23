@@ -1,7 +1,15 @@
 exports.genToken = () => {
 	return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
+
 exports.processRes = trains => {
+  addCacheInfo = trains => {
+    trainObj = {}
+    trainObj.trains = trains
+    trainObj.cacheTime = new Date
+    return trainObj
+  }
+
   sortTrainOrder = trains => {
     sortOrder = {'1':0,'2':1,'3':2,'4':3,'5':4,'6':5,'7':6,'A':7,'C':8,'E':9,'B':10,'D':11,
                 'F':12,'M':13,'G':14,'J':15,'Z':16,'L':17,'N':18,'Q':19,'R':20,'W':21,'S':22}
@@ -12,7 +20,7 @@ exports.processRes = trains => {
         sortedTrains[trainIndex] = train
       }
     })
-    return sortedTrains
+    return addCacheInfo(sortedTrains)
   }
 
   formatTrainData = trains => {
@@ -53,10 +61,3 @@ exports.processRes = trains => {
   return formatTrainData(trains)
 }
 
-exports.addCacheInfo = trains => {
-  // console.log(trains)
-  trainObj = {}
-  trainObj.trains = trains
-  trainObj.cacheTime = new Date
-  return trainObj
-}
